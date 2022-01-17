@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 using ProxyVote.Core.Entities;
 using ProxyVote.Core.Services;
 
-namespace ProxyVote.Client.Back.Endpoints;
+namespace ProxyVote.Citizen.Back.Endpoints;
 
 public class Registrations
 {

@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-using ProxyVote.Client.Back;
+using ProxyVote.Citizen.Back;
 using ProxyVote.Core.Adapters;
 using ProxyVote.Core.Infrastructure;
 using ProxyVote.Core.Services;
 
 [assembly: FunctionsStartup(typeof(Startup))]
 
-namespace ProxyVote.Client.Back;
+namespace ProxyVote.Citizen.Back;
 
 public class Startup : FunctionsStartup
 {

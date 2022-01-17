@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EA4F2662-8F62-4E5D-A9C8-CC0799B82372}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "client-back", "src\client-back\client-back.csproj", "{CE1571B4-700D-41B9-933F-35AADF5976B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "citizen-back", "src\citizen-back\citizen-back.csproj", "{CE1571B4-700D-41B9-933F-35AADF5976B8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "core", "src\core\core.csproj", "{4D1C02EA-4C22-4990-8120-4709A20914A5}"
 EndProject
