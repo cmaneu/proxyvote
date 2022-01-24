@@ -1,0 +1,33 @@
+name: Deploy infrastructure
+
+on: 
+  push: 
+    branches:
+      - 'main'
+      - 'prod'
+    paths: 
+      - 'infrastructure/*'
+      - '.github/workflows/deploy-infrastructure.yaml'
+
+jobs:
+  build-application: 
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set environment variables
+      run: |
+        TAG_NAME=${GITHUB_REF#refs/*/}
+        echo "ENVIRONMENT=${TAG_NAME:4}" >> $GITHUB_ENV
+        echo "$ENVIRONMENT"
+      shell: bash      
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_AUTH_TOKEN }}
+    - name: deploy
+      uses: azure/arm-deploy@v1
+      with:
+        template: ./infrastructure/main.bicep
+        parameters: environment=${{env.ENVIRONMENT}}
+        failOnStdErr: false      
+        deploymentName: 'proxyvote-${{env.ENVIRONMENT}}'  
