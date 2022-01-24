@@ -1,8 +1,11 @@
 ﻿@page "/submit-application"
-@inject NavigationManager NavigationManager
 @using ProxyVote.Core
 @using ProxyVote.Core.Entities
 @using Microsoft.AspNetCore.Components
+@using ProxyVote.Citizen.Front.Services
+
+@inject NavigationManager NavigationManager
+@inject ProxyAPIService ProxyAPIService
 
 <PageTitle>ProxyVote - Submit application</PageTitle>
 <div class="mx-auto max-w gap-24 justify-center my-12 px-6 pb-32">
@@ -169,11 +172,19 @@
     private DateTime PresidentialSecond = new DateTime(2022, 04, 15);
     private DateTime State = new DateTime(2022, 12, 05);
 
-    
+    protected override async Task OnInitializedAsync()
+    {
+        await ProxyAPIService.InitializeService();
+    }
 
-    public void OnSubmitApplication()
+    public async Task OnSubmitApplication()
     {
         // TODO: Implement API
-        NavigationManager.NavigateTo($"/submit/{Application.Applicant.BirthDate}");
+        // 1. Pass on loading state
+        // 2. Submit
+        var registrationId = await ProxyAPIService.PostProxyRegistrationAsync(Application);
+        
+        // 3. Navigate
+        NavigationManager.NavigateTo($"/submit/{registrationId}");
     }
 }

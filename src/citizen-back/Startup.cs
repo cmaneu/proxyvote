@@ -21,11 +21,8 @@ public class Startup : FunctionsStartup
     {
         FunctionsHostBuilderContext context = builder.GetContext();
         builder.ConfigurationBuilder
-            .AddJsonFile(Path.Combine(context.ApplicationRootPath, "appsettings.json"), optional: false,
-                reloadOnChange: true)
-            //Adding Environmental Files //add Conditions
-            .AddJsonFile(Path.Combine(context.ApplicationRootPath, $"appsettings.{context.EnvironmentName}.json"),
-                optional: true, reloadOnChange: false)
+            .AddJsonFile(Path.Combine(context.ApplicationRootPath, "settings.json"), optional: false, reloadOnChange: true)
+            .AddJsonFile(Path.Combine(context.ApplicationRootPath, $"local.settings.json"), optional: true, reloadOnChange: true)
             .AddEnvironmentVariables();
     }
 
