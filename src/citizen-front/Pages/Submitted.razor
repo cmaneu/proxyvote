@@ -1,0 +1,38 @@
+﻿@page "/submit/{ApplicationId}"
+<div class=" bg-gray-50 py-6 flex flex-col justify-center relative overflow-hidden">
+  <div class="relative px-6 pt-10 pb-8 bg-white shadow-xl ring-1 ring-gray-900/5 sm:max-w-lg sm:mx-auto sm:rounded-lg sm:px-10">
+    <div class="max-w-md mx-auto">
+      <div class="text-xl font-semibold flex gap-2"> 
+              <svg class="w-6 h-6 flex-none fill-sky-100 stroke-sky-500 stroke-2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="11" />
+                <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
+              </svg>
+        Your application is submitted!</div>
+      <div class="divide-y divide-gray-300/50">
+        <div class="py-8 text-base leading-7 space-y-6 text-gray-600">
+          <p>You now need to validate your identity. Please go to any police station with an identity document, and your application Id.</p>
+
+          <div class="text-center text-lg bg-yellow-50 p-4">
+            <p>Application Id</p>
+            <p class="font-mono">@ApplicationId.Split('-').FirstOrDefault()</p>
+            <img class="mx-auto" src="@QRCodeUrl" />
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+    [Parameter]
+    public string ApplicationId { get; set; }
+
+    private string QRCodeUrl
+    {
+        get
+        {
+            return "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + System.Net.WebUtility.UrlEncode($"proxyvote://application/{ApplicationId}");
+        }
+    }
+}

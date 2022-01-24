@@ -1,0 +1,179 @@
+﻿@page "/submit-application"
+@inject NavigationManager NavigationManager
+@using ProxyVote.Core
+@using ProxyVote.Core.Entities
+@using Microsoft.AspNetCore.Components
+
+<PageTitle>ProxyVote - Submit application</PageTitle>
+<div class="mx-auto max-w gap-24 justify-center my-12 px-6 pb-32">
+<h1 class="text-blue-800 font-semibold text-4xl pb-6">Submit an application</h1>
+@if(Application != null)
+{
+        
+    
+    <!-- You -->
+    <div class="mt-10 sm:mt-0">
+      <div class="md:grid md:grid-cols-3 md:gap-6">
+        <div class="md:col-span-1">
+          <div class="px-4 sm:px-0">
+            <h3 class="text-lg font-medium leading-6 text-gray-900">About you</h3>
+            <p class="mt-1 text-sm text-gray-600">Use a permanent address where you can receive mail.</p>
+          </div>
+        </div>
+        <div class="mt-5 md:mt-0 md:col-span-2">
+            <div class="shadow overflow-hidden sm:rounded-md">
+              <div class="px-4 py-5 bg-white sm:p-6">
+                <div class="grid grid-cols-6 gap-6">
+                  <div class="col-span-6 sm:col-span-3">
+                    <label for="first-name" class="block text-sm font-medium text-gray-700">First name</label>
+                    <input @bind="Application.Applicant.FirstName" type="text" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                  </div>
+
+                  <div class="col-span-6 sm:col-span-3">
+                    <label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label>
+                    <input @bind="Application.Applicant.LastName" type="text" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                  </div>
+
+                  <div class="col-span-6 sm:col-span-4">
+                    <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
+                    <p class="text-sm">Used to track your application.</p>
+                    <input @bind="Application.Applicant.EmailAddress" type="text" name="email-address" id="email-address" autocomplete="email" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                  </div>
+
+                  <div class="col-span-6 sm:col-span-3">
+                    <label for="birth-date" class="block text-sm font-medium text-gray-700">Birth Date</label>
+                    <input @bind="Application.Applicant.BirthDate" type="date" name="birth-date" id="birth-date" autocomplete="bday" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                  </div>
+
+                  <div class="col-span-6">
+                    <label for="street-address" class="block text-sm font-medium text-gray-700">Street address</label>
+                    <input @bind="Application.Applicant.StreetAddress" type="text" name="street-address" id="street-address" autocomplete="street-address" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                  </div>
+
+                  <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                    <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                    <input @bind="Application.Applicant.CityName" type="text" name="city" id="city" autocomplete="address-level2" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                  </div>
+
+                  <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                    <label for="region" class="block text-sm font-medium text-gray-700">State / Province</label>
+                    <input @bind="Application.Applicant.State" type="text" name="region" id="region" autocomplete="address-level1" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                  </div>
+
+                  <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                    <label for="postal-code" class="block text-sm font-medium text-gray-700">ZIP / Postal code</label>
+                    <input @bind="Application.Applicant.PostalCode" type="text" name="postal-code" id="postal-code" autocomplete="postal-code" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden sm:block" aria-hidden="true">
+      <div class="py-5">
+        <div class="border-t border-gray-200"></div>
+      </div>
+    </div>
+
+<!-- The proxy -->
+    <div class="mt-10 sm:mt-0">
+      <div class="md:grid md:grid-cols-3 md:gap-6">
+        <div class="md:col-span-1">
+          <div class="px-4 sm:px-0">
+            <h3 class="text-lg font-medium leading-6 text-gray-900">Proxy duration</h3>
+            <p class="mt-1 text-sm text-gray-600">Use a permanent address where you can receive mail.</p>
+          </div>
+        </div>
+        <div class="mt-5 md:mt-0 md:col-span-2">
+            <div class="shadow overflow-hidden sm:rounded-md">
+              <div class="px-4 py-5 bg-white sm:p-6">
+                <div class="grid grid-cols-6 gap-6">
+                  <div class="col-span-6 sm:col-span-3">
+                    <label for="proxy-first-name" class="block text-sm font-medium text-gray-700">First name</label>
+                    <input @bind="Application.ProxyVoter.FirstName" type="text" name="proxy-first-name" id="proxy-first-name" autocomplete="off" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                  </div>
+
+                  <div class="col-span-6 sm:col-span-3">
+                    <label for="proxy-last-name" class="block text-sm font-medium text-gray-700">Last name</label>
+                    <input @bind="Application.ProxyVoter.LastName" type="text" name="proxy-last-name" id="proxy-last-name" autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                  </div>
+
+                  <div class="col-span-6 sm:col-span-3">
+                    <label for="proxy-birth-date" class="block text-sm font-medium text-gray-700">Birth Date</label>
+                    <input @bind="Application.ProxyVoter.BirthDate" type="date" name="proxy-birth-date" id="proxy-birth-date" autocomplete="bday" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                  </div>
+
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden sm:block" aria-hidden="true">
+      <div class="py-5">
+        <div class="border-t border-gray-200"></div>
+      </div>
+    </div>
+
+<!-- Duration -->
+
+    <div class="mt-10 sm:mt-0">
+      <div class="md:grid md:grid-cols-3 md:gap-6">
+        <div class="md:col-span-1">
+          <div class="px-4 sm:px-0">
+            <h3 class="text-lg font-medium leading-6 text-gray-900">Proxy duration</h3>
+            <p class="mt-1 text-sm text-gray-600">Use a permanent address where you can receive mail.</p>
+          </div>
+        </div>
+        <div class="mt-5 md:mt-0 md:col-span-2">
+            <div class="shadow overflow-hidden sm:rounded-md">
+              <div class="px-4 py-5 bg-white sm:p-6">
+                <div class="grid grid-cols-6 gap-6">
+
+
+                  <div class="col-span-6 sm:col-span-3">
+                    <label for="birth-date" class="block text-sm font-medium text-gray-700">End date of the proxy registration</label>
+                    <input @bind="Application.ValidUntil" type="date" name="birth-date" id="birth-date" autocomplete="bday" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+
+                  </div>
+                  <div class="flex">
+                        <button @onclick="() => Application.ValidUntil = PresidentialFirst.Date" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">2022 Presidential election - 1st vote</button>
+                        <button @onclick="() => Application.ValidUntil = PresidentialSecond.Date" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">2022 Presidential election - 2nd vote</button>
+                        <button @onclick="() => Application.ValidUntil = State.Date" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">2022 State election</button>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+<div class="flex justify-end">
+    <button @onclick="OnSubmitApplication" class="mt-8 rounded-md bg-green-700 text-white text-lg font-bold p-4 shadow-lg shadow-green-600 hover:bg-green-800">
+      Submit application
+    </button>
+</div>
+}
+
+</div>
+
+
+
+@code {
+    private ProxyRegistration Application { get; set; } = new ProxyRegistration();
+
+    private DateTime PresidentialFirst = new DateTime(2022, 04, 01);
+    private DateTime PresidentialSecond = new DateTime(2022, 04, 15);
+    private DateTime State = new DateTime(2022, 12, 05);
+
+    
+
+    public void OnSubmitApplication()
+    {
+        // TODO: Implement API
+        NavigationManager.NavigateTo($"/submit/{Application.Applicant.BirthDate}");
+    }
+}

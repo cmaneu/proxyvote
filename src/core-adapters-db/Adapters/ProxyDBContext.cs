@@ -49,8 +49,6 @@ public class ProxyDBContext : DbContext
     /// <summary>
     /// Set the partition key shadow property.
     /// </summary>
-    /// <typeparam name="T">The type.</typeparam>
-    /// <param name="entity">The entity.</param>
     public void SetPartitionKey<T>(T entity, string value) where T : class =>
         Entry(entity).Property(PartitionKey).CurrentValue = value;
 
