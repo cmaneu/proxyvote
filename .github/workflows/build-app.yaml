@@ -1,6 +1,7 @@
 name: Application build
 
 on: 
+  workflow_dispatch
   push: 
     branches:
       - 'main'
@@ -8,6 +9,7 @@ on:
     paths: 
       - 'src/*'
       - 'proxyvote.sln'
+      - '.github/workflows/build-app.yaml'
 env: 
   DOTNET_VERSION: '6.0'
   APPLICATION_PATH: './'
