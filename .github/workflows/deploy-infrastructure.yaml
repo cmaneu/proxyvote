@@ -10,7 +10,7 @@ on:
       - '.github/workflows/deploy-infrastructure.yaml'
 
 jobs:
-  build-application: 
+  deploy-infrastructure: 
     runs-on: ubuntu-20.04
     steps:
     - name: Checkout code
@@ -29,5 +29,6 @@ jobs:
       with:
         template: ./infrastructure/main.bicep
         parameters: environment=${{env.ENVIRONMENT}}
-        failOnStdErr: false      
+        failOnStdErr: false
+        scope: subscription      
         deploymentName: 'proxyvote-${{env.ENVIRONMENT}}'  
