@@ -9,6 +9,9 @@ on:
       - 'infrastructure/*'
       - '.github/workflows/deploy-infrastructure.yaml'
 
+env: 
+  DEPLOYMENT_REGION: 'francecentral'
+
 jobs:
   deploy-infrastructure: 
     runs-on: ubuntu-20.04
@@ -30,5 +33,6 @@ jobs:
         template: ./infrastructure/main.bicep
         parameters: environment=${{env.ENVIRONMENT}}
         failOnStdErr: false
-        scope: subscription      
+        scope: subscription
+        region: ${{env.DEPLOYMENT_REGION}}
         deploymentName: 'proxyvote-${{env.ENVIRONMENT}}'  
