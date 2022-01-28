@@ -53,6 +53,9 @@ jobs:
     runs-on: ubuntu-20.04
     outputs:
           functionName: ${{ steps.deploybicep.outputs.functionName }}    
+    environment:
+      name: ${{ env.ENVIRONMENT }}
+      url: ${{ steps.deploybicep.outputs.functionUrl }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
