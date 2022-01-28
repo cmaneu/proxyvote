@@ -1,0 +1,30 @@
+name: Build apps on PR
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths: 
+      - 'src/*'
+      - 'proxyvote.sln'
+      - '.github/workflows/build-app-pr.yaml'
+
+jobs:
+  build-application: 
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up .NET ${{ env.DOTNET_VERSION }}
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}          
+    - name: Build .NET application
+      run: 'dotnet build --configuration Release'
+      shell: bash
+## TODO Run Tests
+    - name: Publish Citizen Back project
+      run: 'dotnet publish -c Release -o output/citizen-back src/citizen-back/citizen-back.csproj'
+      shell: bash      
+    - name: Publish Citizen Front project
+      run: 'dotnet publish -c Release -o output/citizen-front src/citizen-front/citizen-front.csproj'
+      shell: bash
