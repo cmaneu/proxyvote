@@ -24,7 +24,7 @@ param resourceTags object
 var appServicePlanName = 'plan-${applicationName}-${environment}-${instanceNumber}'
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
-  name: 'stf${take(applicationName,4)}${instanceNumber}'
+  name: 'stf${take(applicationName,4)}${take(environment,2)}${instanceNumber}'
   location: location
   kind: 'StorageV2'
   tags: resourceTags
