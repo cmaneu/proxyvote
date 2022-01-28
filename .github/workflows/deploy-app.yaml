@@ -30,8 +30,8 @@ jobs:
       run: 'dotnet build --configuration Release'
       shell: bash
 ## TODO Run Tests
-    - name: Publish Citizen Back project
-      run: 'dotnet publish -c Release -o output/citizen-back src/citizen-back/citizen-back.csproj'
+    - name: Build & publish Citizen API
+      run: 'dotnet build -c Release -o output/citizen-back src/citizen-back/citizen-back.csproj'
       shell: bash      
     - name: Publish Citizen Front project
       run: 'dotnet publish -c Release -o output/citizen-front src/citizen-front/citizen-front.csproj'
