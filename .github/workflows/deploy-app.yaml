@@ -75,8 +75,8 @@ jobs:
         scope: subscription
         region: ${{env.DEPLOYMENT_REGION}}
         deploymentName: 'proxyvote-${{env.ENVIRONMENT}}'  
-  deploy-api:
-    runs-on: ubuntu-20.04
+  apideployment: 
+    runs-on: ubuntu-20.04        
     needs: 
       - build-application
       - deploy-infrastructure                
