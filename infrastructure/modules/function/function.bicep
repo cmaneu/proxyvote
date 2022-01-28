@@ -88,5 +88,5 @@ resource functionApp 'Microsoft.Web/sites@2020-06-01' = {
   }
 }
 
-
+output application_name string = functionApp.name
 output application_url string = functionApp.properties.hostNames[0]

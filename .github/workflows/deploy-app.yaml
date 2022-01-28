@@ -1,0 +1,103 @@
+name: E2E deployment
+
+on: 
+  push: 
+    branches:
+      - 'main'
+      - 'prod'
+    paths: 
+      - 'src/*'
+      - 'proxyvote.sln'
+      - '.github/workflows/deploy-app.yaml'
+      - 'infrastructure/**'
+
+env: 
+  DEPLOYMENT_REGION: 'francecentral'
+env: 
+  DOTNET_VERSION: '6.0'
+  APPLICATION_PATH: './'
+
+jobs:
+  build-application: 
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up .NET ${{ env.DOTNET_VERSION }}
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}          
+    - name: Build .NET application
+      run: 'dotnet build --configuration Release'
+      shell: bash
+## TODO Run Tests
+    - name: Publish Citizen Back project
+      run: 'dotnet publish -c Release -o output/citizen-back src/citizen-back/citizen-back.csproj'
+      shell: bash      
+    - name: Publish Citizen Front project
+      run: 'dotnet publish -c Release -o output/citizen-front src/citizen-front/citizen-front.csproj'
+      shell: bash
+    - name: Save Back project
+      uses: actions/upload-artifact@v2
+      with:
+        name: citizen-back
+        path: 'output/citizen-back'
+        retention-days: 1            
+    - name: Save Front project
+      uses: actions/upload-artifact@v2
+      with:
+        name: citizen-front
+        path: 'output/citizen-front'
+        retention-days: 1        
+  deploy-infrastructure: 
+    runs-on: ubuntu-20.04
+    outputs:
+          functionName: ${{ steps.deploybicep.outputs.functionName }}    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Get current environment
+      run: |
+        TAG_NAME=${GITHUB_REF#refs/*/}
+        echo "ENVIRONMENT=${TAG_NAME}" >> $GITHUB_ENV
+        echo ${{ env.ENVIRONMENT }}
+      shell: bash
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_AUTH_TOKEN }}
+    - name: deploy
+      id: deploybicep
+      uses: azure/arm-deploy@v1
+      with:
+        template: ./infrastructure/main.bicep
+        parameters: environment=${{env.ENVIRONMENT}}
+        failOnStdErr: false
+        scope: subscription
+        region: ${{env.DEPLOYMENT_REGION}}
+        deploymentName: 'proxyvote-${{env.ENVIRONMENT}}'  
+  deploy-api:
+    runs-on: ubuntu-20.04
+    needs: 
+      - build-application
+      - deploy-infrastructure                
+    - name: Get current environment
+      run: |
+        TAG_NAME=${GITHUB_REF#refs/*/}
+        echo "ENVIRONMENT=${TAG_NAME}" >> $GITHUB_ENV
+        echo ${{ env.ENVIRONMENT }}
+      shell: bash
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_AUTH_TOKEN }}
+    - name: Get Back project
+      uses: actions/download-artifact@v2
+      with:
+        name: citizen-back
+        path: 'output/citizen-back'
+    - name: 'Deploy Azure Functions'
+      uses: Azure/functions-action@v1
+      id: fa
+      with:
+        app-name: ${{needs.deploy-infrastructure.outputs.functionName}}
+        slot-name: 'production'
+        package: 'output/citizen-back'

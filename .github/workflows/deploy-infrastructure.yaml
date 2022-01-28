@@ -1,13 +1,14 @@
 name: Deploy infrastructure
 
-on: 
-  push: 
-    branches:
-      - 'main'
-      - 'prod'
-    paths: 
-      - 'infrastructure/**'
-      - '.github/workflows/deploy-infrastructure.yaml'
+on:
+  workflow_dispatch:
+  # push: 
+  #   branches:
+  #     - 'main'
+  #     - 'prod'
+  #   paths: 
+  #     - 'infrastructure/**'
+  #     - '.github/workflows/deploy-infrastructure.yaml'
 
 env: 
   DEPLOYMENT_REGION: 'francecentral'

@@ -1,14 +1,15 @@
-name: Application build
+name: Application build & deploy
 
-on: 
-  push: 
-    branches:
-      - 'main'
-      - 'prod'
-    paths: 
-      - 'src/*'
-      - 'proxyvote.sln'
-      - '.github/workflows/build-app.yaml'
+on:
+  workflow_dispatch: 
+  # push: 
+  #   branches:
+  #     - 'main'
+  #     - 'prod'
+  #   paths: 
+  #     - 'src/*'
+  #     - 'proxyvote.sln'
+  #     - '.github/workflows/build-app.yaml'
 env: 
   DOTNET_VERSION: '6.0'
   APPLICATION_PATH: './'

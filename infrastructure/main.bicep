@@ -70,3 +70,6 @@ module function 'modules/function/function.bicep' = {
     environmentVariables: applicationEnvironmentVariables
   }
 }
+
+output functionUrl string = function.outputs.application_url
+output functionName string = function.outputs.application_name
