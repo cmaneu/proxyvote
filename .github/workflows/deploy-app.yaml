@@ -49,6 +49,7 @@ jobs:
         name: citizen-front
         path: 'output/citizen-front'
         retention-days: 1        
+
   deploy-infrastructure: 
     runs-on: ubuntu-20.04
     outputs:
@@ -75,11 +76,13 @@ jobs:
         scope: subscription
         region: ${{env.DEPLOYMENT_REGION}}
         deploymentName: 'proxyvote-${{env.ENVIRONMENT}}'  
+
   apideployment: 
     runs-on: ubuntu-20.04        
     needs: 
       - build-application
-      - deploy-infrastructure                
+      - deploy-infrastructure      
+    steps:          
     - name: Get current environment
       run: |
         TAG_NAME=${GITHUB_REF#refs/*/}
