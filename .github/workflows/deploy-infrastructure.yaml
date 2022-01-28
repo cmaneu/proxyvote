@@ -11,19 +11,18 @@ on:
 
 env: 
   DEPLOYMENT_REGION: 'francecentral'
-
 jobs:
   deploy-infrastructure: 
     runs-on: ubuntu-20.04
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-    - name: Set environment variables
+    - name: Get current environment
       run: |
         TAG_NAME=${GITHUB_REF#refs/*/}
-        echo "ENVIRONMENT=${TAG_NAME:4}" >> $GITHUB_ENV
-        echo "$ENVIRONMENT"
-      shell: bash      
+        echo "ENVIRONMENT=${TAG_NAME}" >> $GITHUB_ENV
+        echo ${{ env.ENVIRONMENT }}
+      shell: bash
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_AUTH_TOKEN }}
