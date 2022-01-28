@@ -13,7 +13,6 @@ on:
 
 env: 
   DEPLOYMENT_REGION: 'francecentral'
-env: 
   DOTNET_VERSION: '6.0'
   APPLICATION_PATH: './'
 
