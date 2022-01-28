@@ -6,7 +6,7 @@ on:
       - 'main'
       - 'prod'
     paths: 
-      - 'infrastructure/*'
+      - 'infrastructure/**'
       - '.github/workflows/deploy-infrastructure.yaml'
 
 env: 
