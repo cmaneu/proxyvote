@@ -53,6 +53,7 @@ jobs:
     runs-on: ubuntu-20.04
     outputs:
           functionName: ${{ steps.deploybicep.outputs.functionName }}    
+          functionUrl: ${{ steps.deploybicep.outputs.functionUrl }}    
     # environment:
     #   name: ${{ env.ENVIRONMENT }}
     #   url: ${{ steps.deploybicep.outputs.functionUrl }}
@@ -106,3 +107,39 @@ jobs:
         app-name: ${{needs.deploy-infrastructure.outputs.functionName}}
         slot-name: 'production'
         package: 'output/citizen-back'
+  citizenfront-deployment: 
+    runs-on: ubuntu-20.04        
+    needs: 
+      - build-application
+    steps:          
+    - name: Get current environment
+      run: |
+        TAG_NAME=${GITHUB_REF#refs/*/}
+        echo "ENVIRONMENT=${TAG_NAME}" >> $GITHUB_ENV
+        echo ${{ env.ENVIRONMENT }}
+      shell: bash
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_AUTH_TOKEN }}
+    - name: Get Front project
+      uses: actions/download-artifact@v2
+      with:
+        name: citizen-front
+        path: 'output/citizen-front'
+    - name: Configure Front application
+      id: configure-front
+      uses: jsdaniell/create-json@1.1.2
+      with:
+        name: "client-config.json"
+        json: ${{ secrets.CREDENTIALS_JSON }}
+        dir: '{"api.endpoint":"${{needs.deploy-infrastructure.outputs.functionUrl}}"}'  
+    - name:  Deploy
+      id: deploy
+      uses: Azure/static-web-apps-deploy@v1
+      with:
+        azure_static_web_apps_api_token: ${{ secrets.AZURE_SWA_MAIN }}
+        repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+        action: "upload"
+        ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
+        # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
+        app_location: "output/citizen-front" # App source code path
