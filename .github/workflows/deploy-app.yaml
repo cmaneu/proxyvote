@@ -133,7 +133,7 @@ jobs:
       with:
         name: "client-config.json"
         json: '{"api.endpoint":"https://${{needs.deploy-infrastructure.outputs.functionUrl}}"}'
-        dir:  'outpu/citizen-front/config/' 
+        dir:  'output/citizen-front/config/' 
     - name:  Deploy
       id: deploy
       uses: Azure/static-web-apps-deploy@v1
