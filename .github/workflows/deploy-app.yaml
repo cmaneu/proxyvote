@@ -6,7 +6,7 @@ on:
       - 'main'
       - 'prod'
     paths: 
-      - 'src/*'
+      - 'src/**'
       - 'proxyvote.sln'
       - '.github/workflows/deploy-app.yaml'
       - 'infrastructure/**'
