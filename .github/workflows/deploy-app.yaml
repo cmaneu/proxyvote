@@ -143,5 +143,4 @@ jobs:
         action: "upload"
         ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
         # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-        app_location: "output/citizen-front" # App source code path
-        output_location: "wwwroot" # Built app content directory - optional
+        app_location: "output/citizen-front/wwwroot" # App source code path
