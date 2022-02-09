@@ -132,8 +132,8 @@ jobs:
       uses: jsdaniell/create-json@1.1.2
       with:
         name: "client-config.json"
-        json: ${{ secrets.CREDENTIALS_JSON }}
-        dir: '{"api.endpoint":"${{needs.deploy-infrastructure.outputs.functionUrl}}"}'  
+        json: '{"api.endpoint":"https://${{needs.deploy-infrastructure.outputs.functionUrl}}"}'
+        dir:  'outpu/citizen-front/config/' 
     - name:  Deploy
       id: deploy
       uses: Azure/static-web-apps-deploy@v1
