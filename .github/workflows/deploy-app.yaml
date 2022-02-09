@@ -111,6 +111,7 @@ jobs:
     runs-on: ubuntu-20.04        
     needs: 
       - build-application
+      - deploy-infrastructure
     steps:          
     - name: Get current environment
       run: |
