@@ -133,7 +133,7 @@ jobs:
       with:
         name: "client-config.json"
         json: '{"api.endpoint":"https://${{needs.deploy-infrastructure.outputs.functionUrl}}"}'
-        dir:  'output/citizen-front/config/' 
+        dir:  'output/citizen-front/wwwroot/config/' 
     - name:  Deploy
       id: deploy
       uses: Azure/static-web-apps-deploy@v1
@@ -144,3 +144,4 @@ jobs:
         ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
         # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
         app_location: "output/citizen-front" # App source code path
+        output_location: "wwwroot" # Built app content directory - optional
