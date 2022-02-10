@@ -7,8 +7,13 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddScoped(sp => new HttpClient ());
 
 builder.Services.AddScoped<ProxyAPIService>();
 
-await builder.Build().RunAsync();
+var host = builder.Build();
+
+var proxyApiService = host.Services.GetRequiredService<ProxyAPIService>();
+await proxyApiService.InitializeService(builder.HostEnvironment.BaseAddress);
+
+await host.RunAsync();
