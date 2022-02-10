@@ -16,9 +16,9 @@ namespace ProxyVote.Citizen.Front.Services
             HttpClient = httpClient;
         }
 
-        public async Task InitializeService()
+        public async Task InitializeService(string baseAddress)
         {
-            _clientConfig = await HttpClient.GetFromJsonAsync<CitizenClientConfiguration>("config/client-config.json") ?? new CitizenClientConfiguration() {ApiEndpoint = "/" };
+            _clientConfig = await HttpClient.GetFromJsonAsync<CitizenClientConfiguration>($"{baseAddress}config/client-config.json") ?? new CitizenClientConfiguration() {ApiEndpoint = "/" };
         }
 
         public async Task<string?> PostProxyRegistrationAsync(ProxyRegistration registration)

@@ -11,4 +11,9 @@ builder.Services.AddScoped(sp => new HttpClient ());
 
 builder.Services.AddScoped<ProxyAPIService>();
 
-await builder.Build().RunAsync();
+var host = builder.Build();
+
+var proxyApiService = host.Services.GetRequiredService<ProxyAPIService>();
+await proxyApiService.InitializeService(builder.HostEnvironment.BaseAddress);
+
+await host.RunAsync();
