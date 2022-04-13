@@ -4,7 +4,7 @@ namespace ProxyVote.Core.Configuration
 {
     public class CitizenClientConfiguration
     {
-        [JsonPropertyName("ApiEndpoint")]
+        [JsonPropertyName("api.endpoint")]
         public string ApiEndpoint { get; set; }
     }
 }

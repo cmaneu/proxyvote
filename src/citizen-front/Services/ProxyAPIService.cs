@@ -37,6 +37,9 @@ namespace ProxyVote.Citizen.Front.Services
             }
             catch (Exception e)
             {
+                // DEMO MODE : Never fail :)
+                Console.WriteLine(e);
+
                 return Guid.NewGuid().ToString();
             }
            
