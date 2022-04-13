@@ -32,7 +32,7 @@
     {
         get
         {
-            return "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + System.Net.WebUtility.UrlEncode($"proxyvote://application/{ApplicationId}");
+            return "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + System.Net.WebUtility.UrlEncode($"https://proxyvote.maneu.fr/application/{ApplicationId}");
         }
     }
 }
