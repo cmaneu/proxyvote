@@ -27,6 +27,7 @@ module cosmos 'modules/cosmosdb/cosmosdb.bicep' = {
     environment: environment
     tags: defaultTags
     instanceNumber: instanceNumber
+    enableAnalyticalStore: true
     containerName: 'Registrations'
     indexingPolicy: {
       indexingMode: 'consistent'

@@ -49,6 +49,7 @@ param maxStalenessPrefix int = 100000
 @maxValue(86400)
 param maxIntervalInSeconds int = 300
 
+param enableAnalyticalStore bool = false;
 
 /////////////////
 var consistencyPolicy = {
@@ -88,6 +89,7 @@ resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2021-10-15-previ
     consistencyPolicy: consistencyPolicy[defaultConsistencyLevel]
     locations: locations
     databaseAccountOfferType: 'Standard'
+    enableAnalyticalStorage: enableAnalyticalStore
     backupPolicy: {
       type: 'Periodic'
       periodicModeProperties: {
