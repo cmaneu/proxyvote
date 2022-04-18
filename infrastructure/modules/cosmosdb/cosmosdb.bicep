@@ -49,7 +49,7 @@ param maxStalenessPrefix int = 100000
 @maxValue(86400)
 param maxIntervalInSeconds int = 300
 
-param enableAnalyticalStore bool = false;
+param enableAnalyticalStore bool = false
 
 /////////////////
 var consistencyPolicy = {
