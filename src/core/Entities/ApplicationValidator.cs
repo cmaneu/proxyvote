@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace ProxyVote.Core.Entities;
 
-namespace ProxyVote.Core.Entities
+public class ApplicationValidation
 {
-    internal class ApplicationValidator
-    {
-    }
+    public string Type { get; set; }
+    public string Location { get; set; }
+    public string ValidatorId { get; set; }
+    public DateTime ValidationTime { get; set; }
 }
