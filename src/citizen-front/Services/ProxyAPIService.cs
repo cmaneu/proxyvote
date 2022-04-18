@@ -21,11 +21,11 @@ namespace ProxyVote.Citizen.Front.Services
             _clientConfig = await HttpClient.GetFromJsonAsync<CitizenClientConfiguration>($"{baseAddress}config/client-config.json") ?? new CitizenClientConfiguration() {ApiEndpoint = "/" };
         }
 
-        public async Task<string?> PostProxyRegistrationAsync(ProxyRegistration registration)
+        public async Task<string?> PostProxyRegistrationAsync(ProxyApplication application)
         {
             try
             {
-                var response = await HttpClient.PostAsJsonAsync($"{_clientConfig.ApiEndpoint}/registration", registration);
+                var response = await HttpClient.PostAsJsonAsync($"{_clientConfig.ApiEndpoint}/application", application);
 
                 if (!response.IsSuccessStatusCode)
                 {

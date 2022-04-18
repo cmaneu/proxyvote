@@ -4,5 +4,5 @@ namespace ProxyVote.Core.Services;
 
 public interface IProxyDbProvider
 {
-    Task InsertProxyRegistrationAsync(ProxyRegistration registration);
+    Task InsertProxyRegistrationAsync(ProxyApplication application);
 }

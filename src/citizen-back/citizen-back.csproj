@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\core-adapters-db\core-adapters-db.csproj" />
     <ProjectReference Include="..\core\core.csproj" />
+    <ProjectReference Include="..\id-authority-core\ProxyVote.IdentityAuthority.Core\ProxyVote.IdentityAuthority.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
