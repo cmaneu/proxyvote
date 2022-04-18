@@ -10,6 +10,7 @@ using ProxyVote.Citizen.Back;
 using ProxyVote.Core.Adapters;
 using ProxyVote.Core.Infrastructure;
 using ProxyVote.Core.Services;
+using ProxyVote.IdentityAuthority.Core;
 
 [assembly: FunctionsStartup(typeof(Startup))]
 
@@ -28,17 +29,17 @@ public class Startup : FunctionsStartup
 
     public override void Configure(IFunctionsHostBuilder builder)
     {
+        var configuration = builder.GetContext().Configuration;
+        CosmosSettings cosmosSettings = (CosmosSettings)configuration.GetSection("CosmosDb").Get(typeof(CosmosSettings));
+
         builder.Services.AddDbContextFactory<ProxyDBContext>(
             (IServiceProvider sp, DbContextOptionsBuilder opts) =>
             {
-                var configuration = builder.GetContext().Configuration;
-                CosmosSettings cosmosSettings =
-                    (CosmosSettings)configuration.GetSection("CosmosDb").Get(typeof(CosmosSettings));
-
+      
                 opts.UseCosmos(
                         cosmosSettings.EndPoint,
                         cosmosSettings.AccessKey,
-                        "ProxyVote");
+                        "proxyvote");
                     //.LogTo(Console.WriteLine);
             });
 
@@ -47,5 +48,6 @@ public class Startup : FunctionsStartup
 
         builder.Services.AddScoped<IProxyDbProvider, ProxyCosmosDbProvider>();
         builder.Services.AddScoped<ProxyRegistrationService>();
+        builder.Services.AddScoped<RegistrationIdentityService>(provider => new RegistrationIdentityService(cosmosSettings.EndPoint, cosmosSettings.AccessKey));
     }
 }

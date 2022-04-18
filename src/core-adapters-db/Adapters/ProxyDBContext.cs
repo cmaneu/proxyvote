@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Azure.Cosmos;
-
+﻿using Microsoft.EntityFrameworkCore;
 using ProxyVote.Core.Entities;
 
 namespace ProxyVote.Core.Adapters;
@@ -18,7 +10,7 @@ public class ProxyDBContext : DbContext
     /// </summary>
     public const string PartitionKey = nameof(PartitionKey);
 
-    public DbSet<ProxyRegistration> ProxyRegistrations  { get; set; }
+    public DbSet<ProxyApplication?> ProxyRegistrations  { get; set; }
 
     //public void SetPartitionKey<T>(T entity)
     //where T : class, IDocSummaries =>
@@ -33,12 +25,11 @@ public class ProxyDBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        var registrationModel = modelBuilder.Entity<ProxyRegistration>();
-
-        registrationModel.Property<string>(PartitionKey);
-
-        registrationModel
-            .ToContainer("Registrations")
+        var applicationModel = modelBuilder.Entity<ProxyApplication>();
+        applicationModel.Property<string>(PartitionKey);
+        applicationModel
+            .ToContainer("Applications")
+            //.HasNoDiscriminator()
             .HasPartitionKey(PartitionKey)
             .HasKey(r => r.RegistrationId);
         

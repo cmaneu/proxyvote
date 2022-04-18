@@ -14,16 +14,16 @@ public class ProxyCosmosDbProvider : IProxyDbProvider
         _factory = factory;
     }
 
-    public async Task InsertProxyRegistrationAsync(ProxyRegistration registration)
+    public async Task InsertProxyRegistrationAsync(ProxyApplication application)
     {
         await using var context = await _factory.CreateDbContextAsync();
 
-        context.SetPartitionKey(registration, ComputePartitionKey(registration));
-        context.Add(registration);
+        context.SetPartitionKey(application, ComputePartitionKey(application));
+        context.Add(application);
 
         await context.SaveChangesAsync();
     }
-    
-    public string ComputePartitionKey(ProxyRegistration registration) => $"{registration.CreatedAt.Value.Year}-{registration.Applicant.PostalCode.Substring(0,2)}";
+
+    public string ComputePartitionKey(ProxyApplication application) => $"{application.CreatedAt.Value.Year}-{application.Applicant.PostalCode.Substring(0,2)}";
 }
 

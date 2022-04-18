@@ -1,6 +1,6 @@
 ﻿namespace ProxyVote.Core.Entities;
 
-public class ProxyRegistration
+public class ProxyApplication
 {
     public string? RegistrationId { get; set; }
     public DateTime? CreatedAt { get; set; }

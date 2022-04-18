@@ -12,15 +12,15 @@ public class ProxyRegistrationService
         _proxyDbProvider = proxyDbProvider;
     }
 
-    public async Task<string> CreateRegistrationAsync(ProxyRegistration registration)
+    public async Task<string> CreateRegistrationAsync(ProxyApplication application)
     {
-        registration.RegistrationId = Guid.NewGuid().ToString("N");
-        registration.CreatedAt = DateTime.UtcNow;
+        application.RegistrationId = Guid.NewGuid().ToString("N");
+        application.CreatedAt = DateTime.UtcNow;
         
         // TODO: Validate entity
 
-        await _proxyDbProvider.InsertProxyRegistrationAsync(registration);
+        await _proxyDbProvider.InsertProxyRegistrationAsync(application);
 
-        return registration.RegistrationId;
+        return application.RegistrationId;
     }
 }
