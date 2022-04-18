@@ -24,6 +24,6 @@ public class ProxyCosmosDbProvider : IProxyDbProvider
         await context.SaveChangesAsync();
     }
 
-    public string ComputePartitionKey(ProxyApplication application) => $"{application.CreatedAt.Value.Year}-{application.Applicant.PostalCode.Substring(0,2)}";
+    public string ComputePartitionKey(ProxyApplication application) => $"{application.CreatedAt.Value.Year}-{application.Applicant.PostalCode[..2]}";
 }
 

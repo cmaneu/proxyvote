@@ -8,6 +8,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 using ProxyVote.Core.Entities;
 using ProxyVote.Core.Services;
@@ -45,6 +46,8 @@ public class Registrations
     [FunctionName(nameof(GetRegistrationById))]
     [OpenApiOperation(nameof(GetRegistrationById), tags: new[] { "application" }, Description = "Get a application by Id.")]
     [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(ProxyApplication), Description = "The requested application")]
+    [OpenApiParameter("department",In = ParameterLocation.Path, Required = true, Type = typeof(string))]
+    [OpenApiParameter("registrationId", In = ParameterLocation.Path, Required = true, Type = typeof(string))]
     public async Task<IActionResult> GetRegistrationById(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "application/{department}/{registrationId}")]
         HttpRequest req,
@@ -55,6 +58,30 @@ public class Registrations
         var registration = await _registrationIdentityService.GetRegistrationById(department, registrationId);
         return registration == null ? new NotFoundResult() : new OkObjectResult(registration);
     }
+
+
+
+    [FunctionName(nameof(ValidateRegistration))]
+    [OpenApiOperation(nameof(ValidateRegistration), tags: new[] { "application" }, Description = "Validate a specific application.")]
+    [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.OK)]
+    [OpenApiParameter("department", In = ParameterLocation.Path, Required = true, Type = typeof(string))]
+    [OpenApiParameter("registrationId", In = ParameterLocation.Path, Required = true, Type = typeof(string))]
+    [OpenApiRequestBody("application/json", typeof(ApplicationValidation))]
+    public async Task<IActionResult> ValidateRegistration(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "application/{department}/{registrationId}/validate")]
+        ApplicationValidation validation,
+        string registrationId,
+        string department,
+        ILogger log)
+    {
+        await _registrationIdentityService.ValidateRegistration(department, registrationId, validation);
+        return new OkResult();
+    }
+
+
+
+
+
 
 
     [FunctionName(nameof(TestRegistration))]
