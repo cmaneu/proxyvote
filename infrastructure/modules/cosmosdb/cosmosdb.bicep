@@ -132,6 +132,24 @@ resource databaseCollection 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/
   }
 }
 
+resource registrationsCollection 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2021-07-01-preview' = {
+  name: 'Registrations'
+  location: location
+  parent: sqlDatabase
+  properties: {
+    resource: {
+      id: 'Registrations'
+      partitionKey: {
+        paths: [
+          partitionKeyPath
+        ]
+        kind: 'Hash'
+      }
+    indexingPolicy: indexingPolicy
+    }
+  }
+}
+
 // output azure_cosmosdb_mongodb_database string = applicationName
 output AccountName string = accountName
 output Endpoint string = databaseAccount.properties.documentEndpoint
