@@ -27,7 +27,7 @@ module cosmos 'modules/cosmosdb/cosmosdb.bicep' = {
     environment: environment
     tags: defaultTags
     instanceNumber: instanceNumber
-    containerName: 'Registrations'
+    containerName: 'Applications'
     indexingPolicy: {
       indexingMode: 'consistent'
       excludedPaths: [
@@ -44,6 +44,20 @@ module cosmos 'modules/cosmosdb/cosmosdb.bicep' = {
         }
       ]
     }
+  }
+}
+
+module cosmosRegistrationContainer 'modules/cosmosdb/cosmosdb-container.bicep' = {
+  name: 'Registrations'
+  scope: resourceGroup(rg.name)
+  dependsOn: [
+    cosmos
+  ]
+  params: {
+    accountName: cosmos.outputs.AccountName
+    location: location
+    containerName: 'Registrations'
+    databaseName: applicationName
   }
 }
 
