@@ -47,6 +47,20 @@ module cosmos 'modules/cosmosdb/cosmosdb.bicep' = {
   }
 }
 
+module cosmosRegistrationContainer 'modules/cosmosdb/cosmosdb-container.bicep' = {
+  name: 'Registrations'
+  scope: resourceGroup(rg.name)
+  dependsOn: [
+    cosmos
+  ]
+  params: {
+    accountName: cosmos.outputs.AccountName
+    location: location
+    containerName: 'Registrations'
+    databaseName: applicationName
+  }
+}
+
 var applicationEnvironmentVariables = [
   {
     name: 'CosmosDb__Endpoint'
