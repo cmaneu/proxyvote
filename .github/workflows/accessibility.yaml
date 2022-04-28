@@ -47,23 +47,23 @@ jobs:
 # path: 'output/citizen-front'
 
 
-    test-accessibility: 
-        runs-on: ubuntu-latest
-        needs: 
-              - build-application
-        steps:
-            - name: Scan for accessibility issues
-              uses: microsoft/accessibility-insights-action@v2
-              with:
-                  repo-token: ${{ secrets.GITHUB_TOKEN }}
-                  # Provide either site-dir or url
-                  # site-dir: ${{ github.workspace }}/path-to-built-website
-                  url: https://proxyvote.maneu.fr
+  test-accessibility: 
+    runs-on: ubuntu-latest
+    needs: 
+          - build-application
+    steps:
+        - name: Scan for accessibility issues
+          uses: microsoft/accessibility-insights-action@v2
+          with:
+              repo-token: ${{ secrets.GITHUB_TOKEN }}
+              # Provide either site-dir or url
+              # site-dir: ${{ github.workspace }}/path-to-built-website
+              url: https://proxyvote.maneu.fr
 
-            - name: Upload report artifact
-              uses: actions/upload-artifact@v2
-              with:
-                  name: accessibility-reports
-                  path: ${{ github.workspace }}/_accessibility-reports
+        - name: Upload report artifact
+          uses: actions/upload-artifact@v2
+          with:
+              name: accessibility-reports
+              path: ${{ github.workspace }}/_accessibility-reports
 
 
