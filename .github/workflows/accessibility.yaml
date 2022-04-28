@@ -2,16 +2,12 @@ name: Accessibility Insights
 
 on:
   workflow_dispatch:
-
-jobs:
-    build:
-        runs-on: ubuntu-latest
-
 env: 
   DEPLOYMENT_REGION: 'francecentral'
   DOTNET_VERSION: '6.0'
   APPLICATION_PATH: './'
 
+jobs:
   build-application: 
     runs-on: ubuntu-20.04
     steps:
