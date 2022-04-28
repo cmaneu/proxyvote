@@ -58,7 +58,7 @@ jobs:
               repo-token: ${{ secrets.GITHUB_TOKEN }}
               # Provide either site-dir or url
               # site-dir: ${{ github.workspace }}/path-to-built-website
-              url: https://proxyvote.maneu.fr
+              url: https://wonderful-island-0ecbd8503-main.westeurope.1.azurestaticapps.net/
 
         - name: Upload report artifact
           uses: actions/upload-artifact@v2
