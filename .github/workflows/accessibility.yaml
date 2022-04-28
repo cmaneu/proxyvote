@@ -1,0 +1,73 @@
+name: Accessibility Insights
+
+on:
+  workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+env: 
+  DEPLOYMENT_REGION: 'francecentral'
+  DOTNET_VERSION: '6.0'
+  APPLICATION_PATH: './'
+
+  build-application: 
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up .NET ${{ env.DOTNET_VERSION }}
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}          
+    - name: Build .NET application
+      run: 'dotnet build --configuration Release'
+      shell: bash    
+    - name: Publish Citizen Front project
+      run: 'dotnet publish -c Release -o output/citizen-front src/citizen-front/citizen-front.csproj'
+      shell: bash          
+    - name: Configure Front application
+      id: configure-front
+      uses: jsdaniell/create-json@1.1.2
+      with:
+        name: "client-config.json"
+        json: '{"api.endpoint":"https://app-proxyvote-main-001.azurewebsites.net"}'
+        dir:  'output/citizen-front/wwwroot/config/' 
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_AUTH_TOKEN }}
+    - name:  Deploy
+      id: deploy
+      uses: Azure/static-web-apps-deploy@v1
+      with:
+        azure_static_web_apps_api_token: ${{ secrets.AZURE_SWA_ACCESSIBILITY }}
+        repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+        action: "upload"
+        production_branch: "accessibility"
+        ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
+        # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
+        app_location: "output/citizen-front/wwwroot" # App source code path       
+# path: 'output/citizen-front'
+
+
+    test_accessibility: 
+        runs-on: ubuntu-latest
+        needs: 
+              - build-application
+        steps:
+            - name: Scan for accessibility issues
+              uses: microsoft/accessibility-insights-action@v2
+              with:
+                  repo-token: ${{ secrets.GITHUB_TOKEN }}
+                  # Provide either site-dir or url
+                  # site-dir: ${{ github.workspace }}/path-to-built-website
+                  url: https://proxyvote.maneu.fr
+
+            - name: Upload report artifact
+              uses: actions/upload-artifact@v2
+              with:
+                  name: accessibility-reports
+                  path: ${{ github.workspace }}/_accessibility-reports
+
+
