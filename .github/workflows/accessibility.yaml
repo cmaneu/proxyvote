@@ -10,6 +10,8 @@ env:
 jobs:
   build-application: 
     runs-on: ubuntu-20.04
+    outputs:
+      static_web_app_url: ${{ steps.deploy.outputs.static_web_app_url }}    
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -58,7 +60,7 @@ jobs:
               repo-token: ${{ secrets.GITHUB_TOKEN }}
               # Provide either site-dir or url
               # site-dir: ${{ github.workspace }}/path-to-built-website
-              url: https://wonderful-island-0ecbd8503-main.westeurope.1.azurestaticapps.net/
+              url: ${{ needs.build-application.outputs.static_web_app_url }}
 
         - name: Upload report artifact
           uses: actions/upload-artifact@v2
