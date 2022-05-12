@@ -17,7 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{F2FCBCCA-8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityAuthority", "IdentityAuthority", "{07C1BC23-D27F-4202-B8F5-73B04FA54FFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProxyVote.IdentityAuthority.Core", "src\id-authority-core\ProxyVote.IdentityAuthority.Core\ProxyVote.IdentityAuthority.Core.csproj", "{0CD1F9C6-7A76-46BE-B750-46591569E2E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProxyVote.IdentityAuthority.Core", "src\id-authority-core\ProxyVote.IdentityAuthority.Core\ProxyVote.IdentityAuthority.Core.csproj", "{0CD1F9C6-7A76-46BE-B750-46591569E2E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataGenerator", "test-data\TestDataGenerator\TestDataGenerator.csproj", "{D5E47FB8-30D9-45CA-AEE6-BC274356C8C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{0CD1F9C6-7A76-46BE-B750-46591569E2E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CD1F9C6-7A76-46BE-B750-46591569E2E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CD1F9C6-7A76-46BE-B750-46591569E2E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5E47FB8-30D9-45CA-AEE6-BC274356C8C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5E47FB8-30D9-45CA-AEE6-BC274356C8C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5E47FB8-30D9-45CA-AEE6-BC274356C8C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5E47FB8-30D9-45CA-AEE6-BC274356C8C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
