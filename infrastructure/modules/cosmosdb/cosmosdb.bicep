@@ -19,7 +19,7 @@ param location string
 param tags object
 
 @description('The name of the SQL logical server.')
-param accountName string = 'cosmos-${applicationName}-${environment}-${instanceNumber}'
+param accountName string = toLower('cosmos-${applicationName}-${environment}-${instanceNumber}')
 
 @description('The name of the Cosmos collection.')
 param containerName string = applicationName
