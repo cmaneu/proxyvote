@@ -16,6 +16,7 @@
         <PackageReference Include="Bogus" Version="34.0.2" />
         <PackageReference Include="CountryData.Bogus" Version="3.72.0" />
         <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.26.1" />
+        <PackageReference Include="Spectre.Console" Version="0.45.0" />
     </ItemGroup>
 
 </Project>
