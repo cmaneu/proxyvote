@@ -9,6 +9,11 @@ using ProxyVote.Core.Entities;
 using ProxyVote.IdentityAuthority.Core;
 using TestDataGenerator;
 
+// Arg0 = HTTP Endpoint
+// Arg1 = Account key
+// Arg2 = locale
+// Arg3 = # of records to generate
+
 AnsiConsole.Write(
     new FigletText("ProxyVote")
         .LeftAligned()
@@ -33,8 +38,9 @@ var fakeApplicant = new Faker<Applicant>(locale)
             var address = f.Person.Address;
             return new Applicant()
             {
-                CityName = address.City, 
+                CityName = address.City,
                 PostalCode = address.ZipCode,
+                //PostalCode = "75015", // Used to create a hot partition
                 State = address.State
             };
 
