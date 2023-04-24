@@ -143,9 +143,9 @@
 
                   </div>
                   <div class="flex">
-                        <button @onclick="() => Application.ValidUntil = PresidentialFirst.Date" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">2022 Presidential election - 1st vote</button>
-                        <button @onclick="() => Application.ValidUntil = PresidentialSecond.Date" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">2022 Presidential election - 2nd vote</button>
-                        <button @onclick="() => Application.ValidUntil = State.Date" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">2022 State election</button>
+                        <button @onclick="() => Application.ValidUntil = EndOfYear.Date" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">End of year 2023</button>
+                        <button @onclick="() => Application.ValidUntil = PresidentialSecond.Date" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">2024 European elections</button>
+                        <button @onclick="() => Application.ValidUntil = State.Date" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">2027 Presidential election</button>
                     </div>
                 </div>
               </div>
@@ -168,9 +168,9 @@
 @code {
     private ProxyApplication Application { get; set; } = new ProxyApplication();
 
-    private DateTime PresidentialFirst = new DateTime(2022, 04, 01);
-    private DateTime PresidentialSecond = new DateTime(2022, 04, 15);
-    private DateTime State = new DateTime(2022, 12, 05);
+    private DateTime EndOfYear = new DateTime(2023, 12, 31);
+    private DateTime PresidentialSecond = new DateTime(2024, 06, 15);
+    private DateTime State = new DateTime(2027, 04, 31);
 
     protected override async Task OnInitializedAsync()
     {
